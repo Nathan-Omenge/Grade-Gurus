@@ -2,7 +2,7 @@ import streamlit as st
 from joblib import load
 
 # Load the trained model (ensure the model file is in the same directory as this script)
-model = load('Grades Predictive Model.joblib')
+model = load('grades_predictive_model.joblib')
 
 def predict_grade(absences, G1, G2, prior_failures, health):
     """
@@ -14,7 +14,7 @@ def predict_grade(absences, G1, G2, prior_failures, health):
     return prediction[0]  # Returning the first prediction
 
 def main():
-    st.title("Grade Prediction App")
+    st.title("Grade Gurus Prediction App")
 
     # UI for getting inputs from the user
     st.header("Enter the student's details:")
