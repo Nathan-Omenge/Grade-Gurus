@@ -2,11 +2,18 @@ import streamlit as st
 from joblib import load
 import numpy as np
 
-# Assume these are already in your script:
+# Load the model and scaler
 model = load('Grade_prediction.joblib')
 scaler = load('Scaler.joblib')
 
-# Define the prediction function with the output capping logic
+# Streamlit app interface setup
+st.title('Grade Prediction App')
+
+st.write('''
+         Use this app to predict student grades based on prior performance and other factors.
+         ''')
+
+# Define the prediction function
 def predict_grade(G1, G2, failures, absences):
     # Preprocess inputs
     inputs = np.array([[G1, G2, failures, absences]])
@@ -20,15 +27,15 @@ def predict_grade(G1, G2, failures, absences):
     
     return capped_prediction
 
-# Streamlit app interface setup (assuming this is already in your script)
-st.title('Grade Prediction App')
-# Your code to collect user inputs goes here...
+# Collecting user inputs
+G1 = st.number_input('G1: Grade in first term (0-20 scale)', min_value=0, max_value=20, value=10)
+G2 = st.number_input('G2: Grade in second term (0-20 scale)', min_value=0, max_value=20, value=10)
+failures = st.number_input('Number of Prior Failures', min_value=0, max_value=10, value=0)
+absences = st.number_input('Number of Absences', min_value=0, value=0)
 
 # When the Predict button is pressed:
 if st.button('Predict Final Grade'):
-    # Collect inputs and predict
-    prediction = predict_grade(G1, G2, failures, absences)
-    
-    # Display the capped prediction
+    prediction = predict_grade(G1, G2, failures, absences)  # This line uses the variables collected from user input
     st.write(f'The predicted final grade is {prediction:.2f} on a 0-20 scale.')
+
 
