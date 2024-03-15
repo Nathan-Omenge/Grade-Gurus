@@ -2,9 +2,10 @@ import streamlit as st
 from joblib import load
 import numpy as np
 
-# Load the model and scaler
-model = load('Datathon2024/grade_prediction_model.joblib')
-scaler = load('Datathon2024/scaler.joblib')
+# Since the model and scaler files are in the same directory as this script,
+# you don't need to specify a subdirectory path.
+model = load('Grade_prediction.joblib')
+scaler = load('Scaler.joblib')
 
 # Define the prediction function
 def predict_grade(G1, G2, failures, absences):
@@ -33,4 +34,3 @@ absences = st.number_input('Number of Absences', min_value=0, value=0)
 if st.button('Predict Final Grade'):
     prediction = predict_grade(G1, G2, failures, absences)
     st.write(f'The predicted final grade is {prediction:.2f} on a 0-20 scale.')
-
