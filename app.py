@@ -20,8 +20,8 @@ def main():
     st.header("Enter the student's details:")
     
     absences = st.number_input("Number of Absences", min_value=0, value=0, key="absences")
-    G1 = st.number_input("G1: Grade in first term (0-20 scale)", min_value=0, max_value=20, value=10, key="G1")
-    G2 = st.number_input("G2: Grade in second term (0-20 scale)", min_value=0, max_value=20, value=10, key="G2")
+    G1 = st.number_input("G1: Grade in first term (0-20 scale)", min_value=0, max_value=100, value=10, key="G1")
+    G2 = st.number_input("G2: Grade in second term (0-20 scale)", min_value=0, max_value=100, value=10, key="G2")
     prior_failures = st.number_input("Number of Prior Failures", min_value=0, max_value=10, value=0, key="prior_failures")
     health = st.select_slider("Health (1-5 scale, where 5 is very healthy)", options=[1, 2, 3, 4, 5], value=3, key="health")
     
