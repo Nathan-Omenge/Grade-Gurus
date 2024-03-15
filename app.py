@@ -2,12 +2,11 @@ import streamlit as st
 from joblib import load
 import numpy as np
 
-# Since the model and scaler files are in the same directory as this script,
-# you don't need to specify a subdirectory path.
+# Assume these are already in your script:
 model = load('Grade_prediction.joblib')
 scaler = load('Scaler.joblib')
 
-# Define the prediction function
+# Define the prediction function with the output capping logic
 def predict_grade(G1, G2, failures, absences):
     # Preprocess inputs
     inputs = np.array([[G1, G2, failures, absences]])
@@ -15,22 +14,21 @@ def predict_grade(G1, G2, failures, absences):
     
     # Predict the grade
     prediction = model.predict(inputs_scaled)
-    return prediction[0]
+    
+    # Cap the prediction to a max of 20 marks and min of 0
+    capped_prediction = max(min(prediction[0], 20), 0)
+    
+    return capped_prediction
 
-# Streamlit app interface
+# Streamlit app interface setup (assuming this is already in your script)
 st.title('Grade Prediction App')
+# Your code to collect user inputs goes here...
 
-st.write('''
-         Use this app to predict student grades based on prior performance and other factors.
-         ''')
-
-# User inputs
-G1 = st.number_input('G1: Grade in first term (0-20 scale)', min_value=0, max_value=20, value=10)
-G2 = st.number_input('G2: Grade in second term (0-20 scale)', min_value=0, max_value=20, value=10)
-failures = st.number_input('Number of Prior Failures', min_value=0, max_value=10, value=0)
-absences = st.number_input('Number of Absences', min_value=0, value=0)
-
-# Predict button
+# When the Predict button is pressed:
 if st.button('Predict Final Grade'):
+    # Collect inputs and predict
     prediction = predict_grade(G1, G2, failures, absences)
+    
+    # Display the capped prediction
     st.write(f'The predicted final grade is {prediction:.2f} on a 0-20 scale.')
+
