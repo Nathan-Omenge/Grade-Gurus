@@ -30,7 +30,7 @@ def main():
         prediction = predict_grade(absences, G1, G2, prior_failures, health)
         
         st.subheader("Predicted Final Grade:")
-        st.write(f"The predicted final grade is {prediction:.2f} on a 0-20 scale.")
+        st.write(f"The predicted final grade is {prediction:.2f} on a 0-100 scale.")
         
 if __name__ == "__main__":
     main()
