@@ -3,7 +3,7 @@ from joblib import load
 
 # Attempt to load the trained model
 try:
-    model = load('model.joblib')
+    model = load('grades_predictive_model.joblib')
 except FileNotFoundError:
     st.error('Model file not found.')
     st.stop()
